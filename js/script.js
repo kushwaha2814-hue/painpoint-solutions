@@ -1,6 +1,6 @@
 /* =========================================
-   Painpoint Solutions - Complete JavaScript
-   ========================================= */
+    Painpoint Solution - Complete JavaScript
+    ========================================= */
 
 document.addEventListener('DOMContentLoaded', function () {
     'use strict';
@@ -126,15 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // ── Contact form ──────────────────────────
     if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            // If real Formspree action is set, let it submit naturally
-            const action = contactForm.getAttribute('action') || '';
-            if (action.includes('formspree.io') && !action.includes('YOUR_FORM_ID')) {
-                // Real submission — allow default
-                return;
-            }
-
-            // Fallback demo mode
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
             const name    = contactForm.querySelector('#name').value.trim();
             const email   = contactForm.querySelector('#email').value.trim();
@@ -156,12 +148,25 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            setTimeout(() => {
-                showNotification('Thank you! Your message has been sent. We will respond within 24 hours.', 'success');
-                contactForm.reset();
-                submitBtn.innerHTML = origHtml;
-                submitBtn.disabled  = false;
-            }, 1500);
+            try {
+                const resp = await fetch(contactForm.getAttribute('action') || '/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, mobile, message, page: window.location.href })
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    showNotification(data.message || 'Thank you! Your message has been sent.', 'success');
+                    contactForm.reset();
+                } else {
+                    showNotification(data.message || 'Unable to send message. Please try again later.', 'error');
+                }
+            } catch (err) {
+                showNotification('Network error. Please try again later.', 'error');
+            }
+
+            submitBtn.innerHTML = origHtml;
+            submitBtn.disabled  = false;
         });
     }
 
@@ -231,5 +236,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    console.log('Painpoint Solutions — website loaded!');
+    console.log('Painpoint Solution — website loaded!');
 });

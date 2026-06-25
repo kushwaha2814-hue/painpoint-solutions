@@ -1,10 +1,10 @@
-# Painpoint Solutions Website
+# Painpoint Solution Website
 
-A complete, responsive business website built with HTML, CSS, and JavaScript for **Painpoint Solutions**.
+A complete, responsive business website built with HTML, CSS, and JavaScript for **Painpoint Solution**.
 
 ## Overview
 
-This website is based on the provided project brief (`PAINPOINT SOLUTIONS (1).docx`) and the supplied brand images.
+This website is based on the provided project brief and the supplied brand images.
 
 ## Features
 
@@ -56,9 +56,9 @@ Then visit: http://localhost:8000
 
 ## Contact Information
 
-- **Company:** Painpoint Solutions
+- **Company:** Painpoint Solution
 - **Address:** Delhi, India
-- **Email:** info@painpointsolutions.com
+- **Email:** info@painpointsolution.in
 - **Mobile:** +91-8527586110
-- **Website:** www.painpointsolutions.com
+- **Website:** painpointsolution.in
 - **GSTIN:** 07CNVPR2705K1ZN
