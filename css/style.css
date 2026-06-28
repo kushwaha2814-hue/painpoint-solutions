@@ -282,8 +282,24 @@ ul { list-style:none; }
 .service-card p { color:rgba(255,255,255,.8); line-height:1.7; font-size:.95rem; }
 
 /* ── Concepts ──────────────────────────── */
-.concepts { background:var(--light-bg); }
-.concepts-intro { text-align:center; max-width:700px; margin:0 auto 50px; padding:30px; background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); }
+.concepts { background:var(--light-bg); position:relative; overflow:hidden; }
+.concepts::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("../photos/Upcoming-Concepts.jpg") center center / cover no-repeat;
+    opacity: 0.11;
+    pointer-events: none;
+    z-index: 0;
+}
+.concepts::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.72);
+    z-index: 0;
+}
+.concepts-intro { text-align:center; max-width:700px; margin:0 auto 50px; padding:30px; background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); position: relative; z-index: 1; }
 .concepts-intro i { font-size:2.5rem; color:var(--accent-gold); margin-bottom:16px; }
 .concepts-intro p { color:var(--text-light); line-height:1.8; }
 .concepts-intro p strong { color:var(--dark); font-size:1.1rem; display:block; margin-bottom:8px; }
