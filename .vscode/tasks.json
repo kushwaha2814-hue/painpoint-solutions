@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Server",
+            "type": "shell",
+            "command": "\"C:\\Program Files\\nodejs\\node.exe\"",
+            "args": ["server.js"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
