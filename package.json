@@ -4,7 +4,8 @@
   "description": "Simple backend to receive contact form submissions and send email notifications",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "C:\\Progra~1\\nodejs\\node.exe server.js",
+    "dev": "C:\\Progra~1\\nodejs\\node.exe server.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

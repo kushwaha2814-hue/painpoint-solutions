@@ -66,7 +66,7 @@ app.post('/contact', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Contact backend listening on http://localhost:${PORT}`);
   console.log(`Contact form submissions will be sent to: ${TARGET_EMAIL}`);

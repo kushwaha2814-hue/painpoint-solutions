@@ -4,7 +4,7 @@
         {
             "label": "Run Server",
             "type": "shell",
-            "command": "\"C:\\Program Files\\nodejs\\node.exe\"",
+            "command": "C:\\Progra~1\\nodejs\\node.exe",
             "args": ["server.js"],
             "options": {
                 "cwd": "${workspaceFolder}"
