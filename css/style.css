@@ -419,6 +419,96 @@ ul { list-style:none; }
 .contact-social a { width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:var(--transition); }
 .contact-social a:hover { background:var(--primary); transform:translateY(-3px); }
 
+/* ── MSME Certificate ──────────────────── */
+.msme-certificate {
+    background: rgba(255,255,255,.08);
+    border: 2px solid rgba(0,168,232,.3);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 18px 0;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+.msme-certificate:hover {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(0,168,232,.5);
+    box-shadow: 0 8px 24px rgba(0,168,232,.2);
+}
+.msme-title {
+    font-size: .9rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.9);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.msme-title i {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+.msme-content {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+.msme-logo-container {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+.msme-logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.msme-details {
+    flex: 1;
+}
+.msme-status {
+    font-size: .85rem;
+    color: rgba(255,255,255,.75);
+    margin: 0;
+    line-height: 1.4;
+}
+.msme-status-bold {
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 4px 0 8px;
+    line-height: 1.4;
+}
+.msme-desc {
+    font-size: .85rem;
+    color: rgba(255,255,255,.7);
+    margin: 0;
+    line-height: 1.5;
+}
+.msme-certificate-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 14px;
+}
+.certificate-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+
 /* ── Footer ────────────────────────────── */
 .footer { background:#070f1c; color:var(--white); padding:70px 0 0; }
 .footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1.5fr; gap:50px; margin-bottom:50px; }
@@ -484,6 +574,8 @@ ul { list-style:none; }
     .painpoint-grid { grid-template-columns:1fr; }
     .pp-divider { display:none; }
     .steps-grid { grid-template-columns:repeat(2,1fr); }
+    .msme-content { flex-direction: column; }
+    .msme-logo-container { width: 100%; height: auto; }
 }
 
 @media (max-width:768px) {
@@ -506,6 +598,10 @@ ul { list-style:none; }
     .commitment-values { gap:24px; }
     .commitment-banner h2 { font-size:1.9rem; }
     .steps-grid { grid-template-columns:1fr; }
+    .msme-certificate { padding: 18px; }
+    .msme-title { font-size: .85rem; }
+    .msme-logo-container { width: 70px; height: 70px; min-width: 70px; }
+    .certificate-img { max-height: 150px; }
 }
 
 @media (max-width:480px) {
