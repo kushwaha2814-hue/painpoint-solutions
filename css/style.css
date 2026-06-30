@@ -400,7 +400,6 @@ ul { list-style:none; }
 
 /* ── Contact ────────────────────────────── */
 .contact { background:linear-gradient(135deg,var(--dark-secondary) 0%,var(--dark) 100%); color:var(--white); }
-.contact-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:50px; align-items:start; }
 .contact-form-wrapper { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:var(--radius); padding:40px; backdrop-filter:blur(10px); }
 .contact-form label { display:block; font-size:.9rem; font-weight:500; margin-bottom:8px; color:rgba(255,255,255,.9); }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
@@ -420,93 +419,93 @@ ul { list-style:none; }
 .contact-social a:hover { background:var(--primary); transform:translateY(-3px); }
 
 /* ── MSME Certificate ──────────────────── */
-.msme-certificate {
+/* ── Contact Grid Layout ────────────────── */
+.contact-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:50px; align-items:start; }
+.contact-left { display:flex; flex-direction:column; gap:30px; }
+
+/* ── MSME Certificate Section ──────────── */
+.msme-certificate-wrapper {
     background: rgba(255,255,255,.08);
     border: 2px solid rgba(0,168,232,.3);
     border-radius: var(--radius);
-    padding: 24px;
-    margin: 18px 0;
+    padding: 28px;
     transition: var(--transition);
     backdrop-filter: blur(10px);
 }
-.msme-certificate:hover {
+.msme-certificate-wrapper:hover {
     background: rgba(255,255,255,.12);
     border-color: rgba(0,168,232,.5);
     box-shadow: 0 8px 24px rgba(0,168,232,.2);
 }
 .msme-title {
-    font-size: .9rem;
+    font-size: .95rem;
     font-weight: 700;
-    color: rgba(255,255,255,.9);
+    color: rgba(255,255,255,.95);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
+    letter-spacing: 1.2px;
+    margin-bottom: 22px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    text-align: center;
+    justify-content: center;
 }
 .msme-title i {
-    color: var(--accent);
-    font-size: 1.1rem;
+    color: var(--accent-gold);
+    font-size: 1.3rem;
 }
-.msme-content {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 16px;
+.msme-certificate-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
 }
-.msme-logo-container {
-    width: 80px;
-    height: 80px;
-    min-width: 80px;
+.msme-logo-box {
     background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.1);
+    border: 1.5px solid rgba(255,255,255,.15);
     border-radius: var(--radius-sm);
+    padding: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
+    min-height: 200px;
 }
 .msme-logo {
     max-width: 100%;
     height: auto;
+    max-height: 180px;
     display: block;
 }
-.msme-details {
-    flex: 1;
+.msme-cert-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.msme-status {
-    font-size: .85rem;
-    color: rgba(255,255,255,.75);
-    margin: 0;
-    line-height: 1.4;
+.msme-certificate-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 220px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 24px rgba(0,0,0,.3);
+}
+.msme-details {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 18px;
 }
 .msme-status-bold {
-    font-size: .9rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--accent);
-    margin: 4px 0 8px;
+    color: var(--accent-gold);
+    margin: 0 0 10px;
     line-height: 1.4;
 }
 .msme-desc {
-    font-size: .85rem;
-    color: rgba(255,255,255,.7);
+    font-size: .9rem;
+    color: rgba(255,255,255,.8);
     margin: 0;
-    line-height: 1.5;
-}
-.msme-certificate-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid rgba(255,255,255,.1);
-    padding-top: 14px;
-}
-.certificate-img {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-    border-radius: var(--radius-sm);
-    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    line-height: 1.6;
 }
 
 /* ── Footer ────────────────────────────── */
@@ -574,8 +573,9 @@ ul { list-style:none; }
     .painpoint-grid { grid-template-columns:1fr; }
     .pp-divider { display:none; }
     .steps-grid { grid-template-columns:repeat(2,1fr); }
-    .msme-content { flex-direction: column; }
-    .msme-logo-container { width: 100%; height: auto; }
+    .contact-left { gap:24px; }
+    .msme-certificate-container { grid-template-columns: 1fr; }
+    .msme-logo-box { min-height: 160px; }
 }
 
 @media (max-width:768px) {
@@ -598,10 +598,12 @@ ul { list-style:none; }
     .commitment-values { gap:24px; }
     .commitment-banner h2 { font-size:1.9rem; }
     .steps-grid { grid-template-columns:1fr; }
-    .msme-certificate { padding: 18px; }
-    .msme-title { font-size: .85rem; }
-    .msme-logo-container { width: 70px; height: 70px; min-width: 70px; }
-    .certificate-img { max-height: 150px; }
+    .msme-certificate-wrapper { padding: 20px; }
+    .msme-title { font-size: .85rem; margin-bottom: 18px; }
+    .msme-certificate-container { gap: 16px; }
+    .msme-logo-box { min-height: 140px; padding: 12px; }
+    .msme-logo { max-height: 120px; }
+    .msme-certificate-img { max-height: 180px; }
 }
 
 @media (max-width:480px) {
@@ -611,4 +613,13 @@ ul { list-style:none; }
     .contact-form-wrapper { padding:28px 20px; }
     .concepts-grid { grid-template-columns:1fr; }
     .commitment-values { gap:16px; }
+    .msme-certificate-wrapper { padding: 16px; }
+    .msme-title { font-size: .8rem; margin-bottom: 14px; }
+    .msme-certificate-container { grid-template-columns: 1fr; gap: 14px; }
+    .msme-logo-box { min-height: 120px; }
+    .msme-logo { max-height: 100px; }
+    .msme-certificate-img { max-height: 140px; }
+    .msme-details { padding-top: 12px; }
+    .msme-status-bold { font-size: .95rem; }
+    .msme-desc { font-size: .85rem; }
 }
