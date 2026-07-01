@@ -6,10 +6,10 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const TARGET_EMAIL = process.env.TARGET_EMAIL || 'kushwaha2814@gmail.com';
+const TARGET_EMAIL = process.env.TARGET_EMAIL || process.env.CONTACT_EMAIL || 'info@painpointsolution.in';
+const SENDER_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER || 'kushwaha2814@gmail.com';
 
 async function createTransport() {
-  // If SMTP env vars provided, use them; otherwise use Ethereal test account
   if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
     return nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -19,7 +19,6 @@ async function createTransport() {
     });
   }
 
-  // Fallback to Ethereal for testing (no credentials required)
   const testAccount = await nodemailer.createTestAccount();
   return nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -29,25 +28,33 @@ async function createTransport() {
   });
 }
 
+app.get('/health', (_req, res) => {
+  res.json({ ok: true, service: 'painpoint-contact-backend' });
+});
+
 app.post('/contact', async (req, res) => {
-  const { name, email, mobile, message, page } = req.body || {};
-  if (!name || !email || !mobile || !message) {
+  const { name, email, mobile, phone, company, message, page } = req.body || {};
+  const contactPhone = mobile || phone || '';
+
+  if (!name || !email || !contactPhone || !message) {
     return res.status(400).json({ ok: false, message: 'Missing required fields.' });
   }
 
   try {
     const transporter = await createTransport();
+    await transporter.verify();
 
     const mailOptions = {
-      from: process.env.FROM_EMAIL || `no-reply@painpointsolution.in`,
+      from: SENDER_EMAIL,
       to: TARGET_EMAIL,
       subject: `Website Contact Form — ${name}`,
       replyTo: email,
-      text: `New contact form submission:\n\nName: ${name}\nEmail: ${email}\nMobile: ${mobile}\nPage: ${page || ''}\n\nMessage:\n${message}`,
+      text: `New contact form submission:\n\nName: ${name}\nEmail: ${email}\nPhone: ${contactPhone}\nCompany: ${company || ''}\nPage: ${page || ''}\n\nMessage:\n${message}`,
       html: `<h2>New contact form submission</h2>
              <p><strong>Name:</strong> ${name}</p>
              <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Mobile:</strong> ${mobile}</p>
+             <p><strong>Phone:</strong> ${contactPhone}</p>
+             <p><strong>Company:</strong> ${company || ''}</p>
              <p><strong>Page:</strong> ${page || ''}</p>
              <h3>Message</h3>
              <p>${message.replace(/\n/g, '<br>')}</p>`
@@ -55,7 +62,6 @@ app.post('/contact', async (req, res) => {
 
     const info = await transporter.sendMail(mailOptions);
 
-    // If using Ethereal, return preview URL
     let preview = null;
     if (nodemailer.getTestMessageUrl) preview = nodemailer.getTestMessageUrl(info);
 
@@ -67,7 +73,11 @@ app.post('/contact', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Contact backend listening on http://localhost:${PORT}`);
-  console.log(`Contact form submissions will be sent to: ${TARGET_EMAIL}`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Contact backend listening on http://localhost:${PORT}`);
+    console.log(`Contact form submissions will be sent to: ${TARGET_EMAIL}`);
+  });
+}
+
+module.exports = app;

@@ -128,10 +128,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (contactForm) {
         contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const name    = contactForm.querySelector('#name').value.trim();
-            const email   = contactForm.querySelector('#email').value.trim();
-            const mobile  = contactForm.querySelector('#mobile').value.trim();
-            const message = contactForm.querySelector('#message').value.trim();
+            const name     = contactForm.querySelector('#name').value.trim();
+            const email    = contactForm.querySelector('#email').value.trim();
+            const mobile   = contactForm.querySelector('#mobile').value.trim();
+            const company  = contactForm.querySelector('#company')?.value.trim() || '';
+            const message  = contactForm.querySelector('#message').value.trim();
 
             if (!name || !email || !mobile || !message) {
                 showNotification('Please fill in all fields.', 'error'); return;
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const resp = await fetch(contactForm.getAttribute('action') || '/contact', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, mobile, message, page: window.location.href })
+                    body: JSON.stringify({ name, email, mobile, company, message, page: window.location.href })
                 });
                 const data = await resp.json();
                 if (resp.ok) {
