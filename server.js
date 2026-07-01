@@ -1,10 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 
 const TARGET_EMAIL = process.env.TARGET_EMAIL || process.env.CONTACT_EMAIL || 'info@painpointsolution.in';
 const SENDER_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER || 'kushwaha2814@gmail.com';
