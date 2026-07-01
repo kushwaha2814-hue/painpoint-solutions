@@ -5,9 +5,10 @@ const path = require("path");
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-app.get("/", (req, res) => {
+app.get(["/", "/index.html"], (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
@@ -33,11 +34,19 @@ async function createTransport() {
   });
 }
 
-app.get('/health', (_req, res) => {
+app.get(['/health', '/api/health'], (_req, res) => {
   res.json({ ok: true, service: 'painpoint-contact-backend' });
 });
 
-app.post('/contact', async (req, res) => {
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ ok: false, message: 'Not found.' });
+  }
+
+  return res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post(['/contact', '/api/contact'], async (req, res) => {
   const { name, email, mobile, phone, company, message, page } = req.body || {};
   const contactPhone = mobile || phone || '';
 
@@ -78,7 +87,7 @@ app.post('/contact', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Contact backend listening on http://localhost:${PORT}`);
     console.log(`Contact form submissions will be sent to: ${TARGET_EMAIL}`);
